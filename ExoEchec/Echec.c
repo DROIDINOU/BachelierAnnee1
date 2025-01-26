@@ -45,22 +45,13 @@ const char MESSAGESUTILISATEUR[NOMBREMESSAGES][2][MAXLONGUEUR] = {
 
 // Calcul différence absolue entre index ligne arrivée et ligne départ.
 // Retourne le resultat
-int  CalculDeltaLigne (int ligneDepart,int ligneArrivee){
+int  CalculDelta (int depart,int arrivee){
 
-       int deltaLigne = 0;
-       deltaLigne = abs(ligneArrivee-ligneDepart);
-       printf("delta ligne : %d\n", deltaLigne);
-       return deltaLigne;
+       int delta = 0;
+       delta = abs(depart-arrivee);
+       printf("delta ligne : %d\n", delta);
+       return delta;
 
-}
-
-// Calcul différence absolue entre index colonne arrivée et colonne départ
-// Retourne le resultat
-int CalculDeltaColonne (int colonneDepart, int colonneArrivee){
-       int deltaColonne = 0;
-       deltaColonne = abs(colonneArrivee - colonneDepart);
-       printf("delta colonne : %d\n", deltaColonne);
-       return deltaColonne;
 }
 
 /*********************************************************************************************************************************
@@ -388,8 +379,8 @@ int main() {
         printf("Case sélectionnée %d\n", pieceDestination);
 
         // Calculer les deltas et vérifier la direction
-        deltaColonne = CalculDeltaColonne(colonne, colonneDestination);
-        deltaLigne = CalculDeltaLigne(ligne, ligneDestination);
+        deltaColonne = CalculDelta(colonne, colonneDestination);
+        deltaLigne = CalculDelta(ligne, ligneDestination);
         directionValide = VerifieDirection(pieceDepart, ligneDestination, colonneDestination, deltaLigne, deltaColonne);
 
         if (!directionValide) {
@@ -402,7 +393,6 @@ int main() {
             printf("OUP PIECES DS CHEMIN");
             continue; // Recommencer s'il y a un obstacle
         }
-
 
     } while (EstPieceAdverse(noir, pieces, pieceDepart) || EstCaseVide(pieceDepart) ||
              EstPieceJoueur(noir, pieces, pieceDestination) ||
