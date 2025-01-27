@@ -14,15 +14,25 @@
 _______________________________________________________________________________________________________________________________*/
 
 // Définition des pièces de l'échiquier
-const int pieces[2][8] = {
-    {14, 12, 13, 15, 16, 13, 12, 14},  // Pièces noires
-    {4, 2, 3, 5, 6, 3, 2, 4}  // Pièces blanches
+const int pieces[4][8] = {
+
+    {1,1,1,1,1,1,1,1}, // pions blancs
+    {11,11,11,11,11,11,11,11}, // pions noirs
+     {4, 2, 3, 5, 6, 3, 2, 4}, // Pieces blanches
+    {14, 12, 13, 15, 16, 13, 12, 14}  // Pièces noires
 };
+
+const char pions [2][4] = {
+    "♙","♟"
+    };
+
+
 
 // Correspondance des pièces avec leurs emojis
 const char representationspiecesMaitresse[2][8][4] = {
-    {"♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"},  // Pièces noires
-    {"♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"}   // Pièces blanches
+    {"♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"}, // pieces blanches
+    {"♜", "♞", "♝", "♛", "♚", "♝", "♞", "♜"}  // Pièces noires
+      // Pièces blanches
 };
 
 // Messages predefinis pour utilisateur
@@ -105,13 +115,13 @@ void InitialiserEchiquier(int echiquier[8][8]) {
     for (int ligne = 0; ligne < LIGNE; ligne++) {
         for (int colonne = 0; colonne < COLONNE; colonne++) {
             if (ligne == 1) {
-                echiquier[ligne][colonne] = 11;  // Pions noirs
+                echiquier[ligne][colonne] = 1;  //
             } else if (ligne == 6) {
-                echiquier[ligne][colonne] = 1;  // Pions blancs
+                echiquier[ligne][colonne] = 11;  // Pions blancs // pieces[1][colonne]
             } else if (ligne == 0) {
-                echiquier[ligne][colonne] = pieces[1][colonne];  // Pièces noires
+                echiquier[ligne][colonne] = pieces[2][colonne];  // Pièces noires pieces[2][colonne]
             } else if (ligne == 7) {
-                echiquier[ligne][colonne] = pieces[0][colonne];  // Pièces blanches
+                echiquier[ligne][colonne] = pieces[3][colonne];  // Pièces blanches pieces[3][colonne]
             } else {
                 echiquier[ligne][colonne] = 0;  // Case vide
             }
@@ -119,41 +129,38 @@ void InitialiserEchiquier(int echiquier[8][8]) {
     }
 }
 
-
-
-
 // Affichage de l'échiquier (Pieces maitresses, pions, cases vides)
-void AfficherEchiquier(bool joueur, int echiquier[8][8],const char representationspiecesMaitresse[2][8][4],const int pieces[2][8] ) {
+void AfficherEchiquier(bool joueur, int echiquier[8][8], const char representationspiecesMaitresse[2][8][4], const int pieces[4][8]) {
     for (int ligne = 0; ligne < LIGNE; ligne++) {
         printf("\n");
         for (int colonne = 0; colonne < COLONNE; colonne++) {
-            if (echiquier[ligne][colonne] == 1) {
-                printf("♟  ");  // Pions noirs
+
+            if (echiquier[ligne][colonne] == 0) {
+                printf("⬜ ");  // Cases vides
+
+            } else if (echiquier[ligne][colonne] == 1) {
+                printf("%s  ", pions[0]);
+
             } else if (echiquier[ligne][colonne] == 11) {
-                printf("♙  ");  // Pions blancs
+                printf("%s  ", pions[1]);
 
-            } else if (echiquier[ligne][colonne] == 0){
-             printf("⬜ ");}  // Cases vides}
-
-             else {
-               int deux = 0;
-                while (deux < 2){
-
-                int ix = 0;
-                while(ix <8){
-                    if(echiquier[ligne][colonne]== pieces[deux][ix]){
-                        printf("%s  ", representationspiecesMaitresse[deux][ix]);
-                        ix = 8;
-                        }  // Pièces maîtresses noires}
+            } else {
+                int deux = 0;
+                while (deux < 2) {
+                    int ix = 0;
+                    while (ix < 8) {
+                        if (echiquier[ligne][colonne] == pieces[2 + deux][ix]) {
+                            printf("%s  ", representationspiecesMaitresse[deux][ix]);
+                            ix = 8;
+                        }
                         ix += 1;
                     }
-                                    deux+=1;
-
+                    deux += 1;
                 }
-    }
             }
         }
     }
+}
 
 
 /*********************************************************************************************************************************
@@ -316,14 +323,14 @@ bool EstCaseVide(int casePiece){
 bool EstPieceJoueur (bool joueur,const int pieces[2][8], int casePiece){
 for (int i = 0; i < 8; i++) {  // Boucle sur les pièces de l'adversaire
                     if (joueur) {
-                        printf("joueur noir\n");
+                        printf("joueur blanc\n");
                         if( casePiece == pieces[1][i] || casePiece == 1){
                         printf("Vous avez selectionner une piece vous appartenant\n");
                         return true; }
 
                             }
                     else if (!joueur){
-                    printf("joueur blanc\n");
+                    printf("joueur noir\n");
                     if( casePiece == pieces[0][i] || casePiece == 11){
                         printf("Vous vez selectionner une piece vous appartenant\n");
                         return true; }
@@ -336,16 +343,16 @@ for (int i = 0; i < 8; i++) {  // Boucle sur les pièces de l'adversaire
 bool EstPieceAdverse(bool joueur,const int pieces[2][8], int casePiece ){
             for (int i = 0; i < 8; i++) {  // Boucle sur les pièces de l'adversaire
                     if (joueur) {
-                        printf("joueur noir");
+                        printf("joueur blanc");
                         if( casePiece == pieces[0][i] || casePiece == 1){
                         printf("Vous avez selectionner une piece adverse\n");
                         return true; }
 
                             }
                     else if (!joueur){
-                    printf("joueur blanc");
+                    printf("joueur noir");
                     if( casePiece == pieces[1][i] || casePiece == 11){
-                        printf("Vous vez selectionner une piece adverse\n");
+                        printf("Vous avez selectionner une piece adverse\n");
                         return true; }
 
                     }
@@ -364,10 +371,10 @@ void DeplacerPieceJoueur (int ligneDepart, int colonneDepart, int ligneDestinati
 
 int main() {
     EmojiWindows(); // fonction pour afficher pieces echiquier
-    bool noir = true, gagne = false, egalite = false;
+    bool blanc = true, gagne = false, egalite = false;
     int echiquier[LIGNE][COLONNE] = {0};
     InitialiserEchiquier(echiquier);
-            AfficherEchiquier(noir,echiquier, representationspiecesMaitresse,pieces);
+            AfficherEchiquier(blanc,echiquier, representationspiecesMaitresse,pieces);
 
     while (!gagne && !egalite){
     // Variables pour l'interaction utilisateur
@@ -382,7 +389,7 @@ int main() {
         printf("\nVous avez entré : %d\n", ligne);
         pieceDepart = CaseUtilisateur(ligne, colonne, echiquier);
 
-        if (EstPieceAdverse(noir, pieces, pieceDepart) || EstCaseVide(pieceDepart)) {
+        if (EstPieceAdverse(blanc, pieces, pieceDepart) || EstCaseVide(pieceDepart)) {
             continue; // Recommencer si la pièce est adverse ou la case est vide
         }
 
@@ -393,7 +400,7 @@ int main() {
         ligneDestination = ObtenirReponseAuMessage(MESSAGESUTILISATEUR, 1);
         pieceDestination = CaseUtilisateur(ligneDestination, colonneDestination, echiquier);
 
-        if (EstPieceJoueur(noir, pieces, pieceDestination)) {
+        if (EstPieceJoueur(blanc, pieces, pieceDestination)) {
             continue; // Recommencer si une pièce du joueur est sur la case de destination
         }
 
@@ -415,15 +422,15 @@ int main() {
             continue; // Recommencer s'il y a un obstacle
         }
 
-    } while (EstPieceAdverse(noir, pieces, pieceDepart) || EstCaseVide(pieceDepart) ||
-             EstPieceJoueur(noir, pieces, pieceDestination) ||
+    } while (EstPieceAdverse(blanc, pieces, pieceDepart) || EstCaseVide(pieceDepart) ||
+             EstPieceJoueur(blanc, pieces, pieceDestination) ||
               !directionValide ||
               ObstacleDansDirection(directionValide, ligne, colonne, ligneDestination, colonneDestination,
                                                          deltaLigne, deltaColonne, echiquier));
     DeplacerPieceJoueur(ligne,colonne,ligneDestination,colonneDestination, echiquier, directionValide);
     printf("Mouvement valide\n");
-AfficherEchiquier(noir,echiquier,representationspiecesMaitresse,pieces);
-    noir = !noir;
+    AfficherEchiquier(blanc,echiquier,representationspiecesMaitresse,pieces);
+    blanc = !blanc;
      }
 
     return 0;
