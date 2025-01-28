@@ -30,9 +30,12 @@ int main() {
     //EmojiWindows();    // Affichage d'emojis sur windows
     ConfigureConsoleForC(); // Affichage d emojis console Vs
     printf(REGLEJEU); // affiche en debut de jeu les regles du jeu
-    int pointsJoueurRouge = 0, pointsJoueurBleu = 0;// comptage des points de manche
+    int pointsJoueurRouge = 0, pointsJoueurBleu = 0, colonne = -1;// comptage des points de manche
     char veuxContinuer = 'O', veuxModeSimple = 'O';
     while (veuxContinuer == 'O') {
+        /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^/
+                                    UTILISATION POINTEUR
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
         ObtenirReponseCaractere(messageEtReponsesAttendues, 1, &veuxModeSimple);
         int colonne = -1, ligne = -1, nombreToursJoues = 0;
         int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE] = { 0 };// grille servant à l'affichage
@@ -44,7 +47,7 @@ int main() {
         // boucle de la manche s arrête si un joueur obtient une ligne de victoire
         //ou en cas d egalite (tableau rempli sans victoire, tours joues = nombre de case de la grille)
         while (!gagne && nombreToursJoues < (LONGUEURLIGNE * LONGUEURCOLONNE)) {
-            colonne = ObtenirColonne(tableauGrilleJeu, tableauEtatColonnes);//obtient la colonne choisie par joueur apres validation
+            ObtenirColonne(tableauGrilleJeu, tableauEtatColonnes, &colonne);//obtient la colonne choisie par joueur apres validation
             ligne = ObtenirLigneEtPlacerJeton(rouges, tableauGrilleJeu, colonne, tableauEtatColonnes);// detecte la ligne du jeton placé
             gagne = EstVictorieux(veuxModeSimple, tableauGrilleJeu, colonne, ligne, tableauMarquageVictoires);//verifie si victoire(s)
             // detectees
@@ -56,7 +59,7 @@ int main() {
         }
 
         AffichageMessageFinManche(gagne, rouges, pointsJoueurRouge, pointsJoueurBleu, ligne, colonne);
-        ObtenirReponseCaractere(messageEtReponsesAttendues, 0, &veuxModeSimple); //demande au joueur si veut recommencer une manche
+        ObtenirReponseCaractere(messageEtReponsesAttendues, 0, &veuxContinuer); //demande au joueur si veut recommencer une manche
     }
     printf(MESSAGEFINJEU);
     return 0;
