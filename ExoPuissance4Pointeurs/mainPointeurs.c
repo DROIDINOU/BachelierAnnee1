@@ -48,7 +48,7 @@ int main() {
         //ou en cas d egalite (tableau rempli sans victoire, tours joues = nombre de case de la grille)
         while (!gagne && nombreToursJoues < (LONGUEURLIGNE * LONGUEURCOLONNE)) {
             ObtenirColonne(tableauGrilleJeu, tableauEtatColonnes, &colonne);//obtient la colonne choisie par joueur apres validation
-            ligne = ObtenirLigneEtPlacerJeton(rouges, tableauGrilleJeu, colonne, tableauEtatColonnes);// detecte la ligne du jeton placé
+            ObtenirLigneEtPlacerJeton(rouges, tableauGrilleJeu, colonne, tableauEtatColonnes, &ligne);// detecte la ligne du jeton placé
             gagne = EstVictorieux(veuxModeSimple, tableauGrilleJeu, colonne, ligne, tableauMarquageVictoires);//verifie si victoire(s)
             // detectees
             pointsJoueurRouge += (rouges && gagne ? 1 : 0);
