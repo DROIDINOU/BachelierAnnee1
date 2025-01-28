@@ -32,8 +32,8 @@ void verifierAlignementDansDirection(char modeAffichageVictoire, int ligne, int 
 void marquerEtComptabiliser(char modeAffichageVictoire, int ligneAVerifier, int colonneAVerifier,
                             int typeDirection, int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE],
                             int tableauComptageVictoires[4][2]);
-bool EstVictorieux(char modeAffichageVictoire, int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int colonne, int ligne,
-                   int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE]);
+void EstVictorieux(char modeAffichageVictoire, int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int colonne, int ligne,
+                   int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE], bool *victoire);
 
 
 void AffichageMessageFinManche(bool gagne, bool rouges, int pointsJoueurRouge, int pointsJoueurBleu, int ligne, int colonne);

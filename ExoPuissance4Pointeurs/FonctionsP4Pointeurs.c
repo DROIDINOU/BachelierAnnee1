@@ -276,9 +276,8 @@ void marquerEtComptabiliser(char modeAffichageVictoire, int ligneAVerifier, int 
 }
 
 // Fonction centrale de vérification des victoires
-bool EstVictorieux(char modeAffichageVictoire, int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int colonne, int ligne,
-    int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE]) {
-    bool victoire = false;
+void EstVictorieux(char modeAffichageVictoire, int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int colonne, int ligne,
+    int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE], bool *gagne) {
     // tableau de comptage.Les 7 directions de vérifications sont regoupées dans les 4 directions principales
     int comptageSuitesParDirection[4][2] = { {0, VICTOIREDIAGONALE},
                                             {0, VICTOIREDIAGONALEBIS},
@@ -290,8 +289,7 @@ bool EstVictorieux(char modeAffichageVictoire, int tableauGrilleJeu[LONGUEURLIGN
             tableauGrilleJeu, tableauMarquageVictoires, DIRECTIONS[i][2], comptageSuitesParDirection);
     }
 
-    victoire = VerifieVictoire(comptageSuitesParDirection, tableauMarquageVictoires);
-    return victoire;
+    *gagne = VerifieVictoire(comptageSuitesParDirection, tableauMarquageVictoires);
 }
 
 /* *************************************************************************************************************************
