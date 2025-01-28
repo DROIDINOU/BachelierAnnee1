@@ -1,5 +1,5 @@
-#include "FonctionsP4.h"
-#include "ConstantesP4.h"
+#include "FonctionsP4Pointeurs.h"
+#include "ConstantesP4Pointeurs.h"
 
 
 /*===============================================================================================================================
@@ -31,9 +31,9 @@ int main() {
     ConfigureConsoleForC(); // Affichage d emojis console Vs
     printf(REGLEJEU); // affiche en debut de jeu les regles du jeu
     int pointsJoueurRouge = 0, pointsJoueurBleu = 0;// comptage des points de manche
-    char veuxContinuer = 'O';
+    char veuxContinuer = 'O', veuxModeSimple = 'O';
     while (veuxContinuer == 'O') {
-        char veuxModeSimple = ObtenirReponseCaractere(messageEtReponsesAttendues, 1);
+        ObtenirReponseCaractere(messageEtReponsesAttendues, 1, &veuxModeSimple);
         int colonne = -1, ligne = -1, nombreToursJoues = 0;
         int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE] = { 0 };// grille servant à l'affichage
         int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE] = { 0 };// tableau de marquage des victoires
@@ -56,7 +56,7 @@ int main() {
         }
 
         AffichageMessageFinManche(gagne, rouges, pointsJoueurRouge, pointsJoueurBleu, ligne, colonne);
-        veuxContinuer = ObtenirReponseCaractere(messageEtReponsesAttendues, 0); //demande au joueur si veut recommencer une manche
+        ObtenirReponseCaractere(messageEtReponsesAttendues, 0, &veuxModeSimple); //demande au joueur si veut recommencer une manche
     }
     printf(MESSAGEFINJEU);
     return 0;

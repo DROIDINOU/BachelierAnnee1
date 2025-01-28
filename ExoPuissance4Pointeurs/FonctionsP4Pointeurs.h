@@ -1,9 +1,9 @@
-#include "ConstantesP4.h"
+#include "ConstantesP4Pointeurs.h"
 
 void ConfigureConsoleForC();
 void NettoyerTableauMarquageVictoires(int direction, int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE]);
 void EmojiWindows();
-char ObtenirReponseCaractere(const char messageEtReponsesAttendues[][3][MAXLONGUEUR], int indexMessage);
+void ObtenirReponseCaractere(const char messageEtReponsesAttendues[][3][MAXLONGUEUR], int indexMessage, char *pmode);
 int ObtenirColonne(int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int tableauEtatColonnes[LONGUEURCOLONNE]);
 int VerifierValiditeColonne(int entree, int colonne, int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE]);
 void AfficherErreurColonne(int typeMessage, int colonne);

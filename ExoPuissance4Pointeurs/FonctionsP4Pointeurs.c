@@ -1,5 +1,5 @@
-#include "FonctionsP4.h"
-#include "ConstantesP4.h"
+#include "FonctionsP4Pointeurs.h"
+#include "ConstantesP4Pointeurs.h"
 
 /*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                                                      FONCTIONS UTILITAIRES
@@ -35,24 +35,22 @@ void NettoyerTableauMarquageVictoires(int direction, int tableauMarquageVictoire
 // Cette réponse peut être l'un des caractères spécifiés dans le tableau messageEtReponsesAttendues.
 // Si la réponse fournie n'est pas valide, la fonction redemande une entrée jusqu'à ce qu'une réponse valide soit donnée.
 // La fonction retourne le caractère valide correspondant à la réponse de l'utilisateur.
-char ObtenirReponseCaractere(const char messageEtReponsesAttendues[][3][MAXLONGUEUR], int indexMessage) {
-    char reponse;  // Variable pour stocker la réponse obtenue
+void ObtenirReponseCaractere(const char messageEtReponsesAttendues[][3][MAXLONGUEUR], int indexMessage, char *pmode) {
     int resultat;  // Retour de scanf
 
     do {
         // Affichage du message avec les réponses attendues de l utilisateur
         printf("%s - %s/%s: ", messageEtReponsesAttendues[indexMessage][0], messageEtReponsesAttendues[indexMessage][1], messageEtReponsesAttendues[indexMessage][2]);
 
-        resultat = scanf(" %c", &reponse);
+        resultat = scanf(" %c", pmode);
         while (getchar() != '\n');
 
         // Vérifie si la réponse attendu a ete rentree et retour scanf ok
-        if (resultat != 1 || (reponse != messageEtReponsesAttendues[indexMessage][1][0] && reponse != messageEtReponsesAttendues[indexMessage][2][0])) {
+        if (resultat != 1 || (*pmode != messageEtReponsesAttendues[indexMessage][1][0] && *pmode != messageEtReponsesAttendues[indexMessage][2][0])) {
             printf("Réponse invalide. Veuillez entrer '%s' ou '%s'.\n", messageEtReponsesAttendues[indexMessage][1], messageEtReponsesAttendues[indexMessage][2]);
         }
-    } while (reponse != messageEtReponsesAttendues[indexMessage][1][0] && reponse != messageEtReponsesAttendues[indexMessage][2][0]);
+    } while (*pmode != messageEtReponsesAttendues[indexMessage][1][0] && *pmode != messageEtReponsesAttendues[indexMessage][2][0]);
 
-    return reponse;// retourne la reponse attendue correspondant au message
 }
 /* *************************************************************************************************************************
                                 FONCTIONS DE GESTION DES COLONNES ENTREES PAR L UTILISATEUR
