@@ -5,7 +5,7 @@ void NettoyerTableauMarquageVictoires(int direction, int tableauMarquageVictoire
 void EmojiWindows();
 void ObtenirReponseCaractere(const char messageEtReponsesAttendues[][3][MAXLONGUEUR], int indexMessage, char *pmode);
 void ObtenirColonne(int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int tableauEtatColonnes[LONGUEURCOLONNE], int *pcolonne);
-int  VerifierValiditeColonne(int entree, int colonne, int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE]);
+void VerifierValiditeColonne(int entree, int colonne, int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int *codeErreur);
 void AfficherErreurColonne(int typeMessage, int colonne);
 void RemplirtableauEtatColonnes(int tableauEtatColonnes[LONGUEURCOLONNE], int indexColonne);
 void AfficherColonnesDisponibles(int listeColonneDisponible[LONGUEURCOLONNE]);
@@ -38,4 +38,4 @@ void EstVictorieux(char modeAffichageVictoire, int tableauGrilleJeu[LONGUEURLIGN
 
 void AffichageMessageFinManche(bool gagne, bool rouges, int pointsJoueurRouge, int pointsJoueurBleu, int ligne, int colonne);
 void AffichagePoints(int pointsJoueurRouge, int pointsJoueurBleu);
-
+void IncrementerPoints(bool rouges, bool gagne, int *pointsJoueurRouge, int *pointsJoueurBleu);

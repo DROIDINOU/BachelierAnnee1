@@ -1,7 +1,6 @@
 #include "FonctionsP4Pointeurs.h"
 #include "ConstantesP4Pointeurs.h"
 
-
 /*===============================================================================================================================
                                                       CONSTANTES
 =============================================================================================================================== */
@@ -30,19 +29,19 @@ int main() {
     //EmojiWindows();    // Affichage d'emojis sur windows
     ConfigureConsoleForC(); // Affichage d emojis console Vs
     printf(REGLEJEU); // affiche en debut de jeu les regles du jeu
-    int pointsJoueurRouge = 0, pointsJoueurBleu = 0, colonne = -1;// comptage des points de manche
+    int pointsJoueurRouge = 0, pointsJoueurBleu = 0;
     char veuxContinuer = 'O', veuxModeSimple = 'O';
     while (veuxContinuer == 'O') {
         /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^/
                                     UTILISATION POINTEUR
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
-        ObtenirReponseCaractere(messageEtReponsesAttendues, 1, &veuxModeSimple);
         int colonne = -1, ligne = -1, nombreToursJoues = 0;
         int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE] = { 0 };// grille servant à l'affichage
         int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE] = { 0 };// tableau de marquage des victoires
         int tableauEtatColonnes[LONGUEURCOLONNE] = { 0 };// tableau permettant de detecter si colonne vient d être remplie
         bool rouges = true, gagne = false; // verification du joueur (rouge ou bleu) et de la victoire de la manche
         // Affichage grille vide avant le debut de la manche
+        ObtenirReponseCaractere(messageEtReponsesAttendues, 1, &veuxModeSimple);
         AffichageGrille(gagne, tableauGrilleJeu, ligne, colonne, tableauMarquageVictoires);
         // boucle de la manche s arrête si un joueur obtient une ligne de victoire
         //ou en cas d egalite (tableau rempli sans victoire, tours joues = nombre de case de la grille)
@@ -50,9 +49,13 @@ int main() {
             ObtenirColonne(tableauGrilleJeu, tableauEtatColonnes, &colonne);//obtient la colonne choisie par joueur apres validation
             ObtenirLigneEtPlacerJeton(rouges, tableauGrilleJeu, colonne, tableauEtatColonnes, &ligne);// detecte la ligne du jeton placé
             EstVictorieux(veuxModeSimple, tableauGrilleJeu, colonne, ligne, tableauMarquageVictoires, &gagne);//verifie si victoire(s)
+<<<<<<< HEAD
             // detectees
             pointsJoueurRouge += (rouges && gagne ? 1 : 0);
             pointsJoueurBleu += (!rouges && gagne ? 1 : 0);
+=======
+            IncrementerPoints(rouges, gagne, &pointsJoueurRouge,&pointsJoueurBleu);
+>>>>>>> 42f6863c01d4731a7e08873bae95a5105adce042
             AffichageGrille(gagne, tableauGrilleJeu, ligne, colonne, tableauMarquageVictoires);
             rouges = !rouges;// changement de joueur
             nombreToursJoues++;// incremente les tours joues
