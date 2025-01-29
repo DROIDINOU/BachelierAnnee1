@@ -1,7 +1,6 @@
 #include "FonctionsP4Pointeurs.h"
 #include "ConstantesP4Pointeurs.h"
 
-
 /*===============================================================================================================================
                                                       CONSTANTES
 =============================================================================================================================== */
@@ -36,13 +35,13 @@ int main() {
         /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^/
                                     UTILISATION POINTEUR
         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
-        ObtenirReponseCaractere(messageEtReponsesAttendues, 1, &veuxModeSimple);
         int colonne = -1, ligne = -1, nombreToursJoues = 0;
         int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE] = { 0 };// grille servant à l'affichage
         int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE] = { 0 };// tableau de marquage des victoires
         int tableauEtatColonnes[LONGUEURCOLONNE] = { 0 };// tableau permettant de detecter si colonne vient d être remplie
         bool rouges = true, gagne = false; // verification du joueur (rouge ou bleu) et de la victoire de la manche
         // Affichage grille vide avant le debut de la manche
+        ObtenirReponseCaractere(messageEtReponsesAttendues, 1, &veuxModeSimple);
         AffichageGrille(gagne, tableauGrilleJeu, ligne, colonne, tableauMarquageVictoires);
         // boucle de la manche s arrête si un joueur obtient une ligne de victoire
         //ou en cas d egalite (tableau rempli sans victoire, tours joues = nombre de case de la grille)
@@ -51,8 +50,8 @@ int main() {
             ObtenirLigneEtPlacerJeton(rouges, tableauGrilleJeu, colonne, tableauEtatColonnes, &ligne);// detecte la ligne du jeton placé
             EstVictorieux(veuxModeSimple, tableauGrilleJeu, colonne, ligne, tableauMarquageVictoires, &gagne);//verifie si victoire(s)
             // detectees
-            pointsJoueurRouge += (rouges && gagne ? 1 : 0);
-            pointsJoueurBleu += (!rouges && gagne ? 1 : 0);
+            MettreAJourPoints(rouges, gagne, &pointsJoueurRouge,&pointsJoueurBleu);
+        
             AffichageGrille(gagne, tableauGrilleJeu, ligne, colonne, tableauMarquageVictoires);
             rouges = !rouges;// changement de joueur
             nombreToursJoues++;// incremente les tours joues

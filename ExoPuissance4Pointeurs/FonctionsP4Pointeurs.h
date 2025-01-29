@@ -38,4 +38,4 @@ void EstVictorieux(char modeAffichageVictoire, int tableauGrilleJeu[LONGUEURLIGN
 
 void AffichageMessageFinManche(bool gagne, bool rouges, int pointsJoueurRouge, int pointsJoueurBleu, int ligne, int colonne);
 void AffichagePoints(int pointsJoueurRouge, int pointsJoueurBleu);
-
+void MettreAJourPoints(bool rouges, bool gagne, int *pointsJoueurRouge, int *pointsJoueurBleu);

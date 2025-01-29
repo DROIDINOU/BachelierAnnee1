@@ -292,6 +292,10 @@ void EstVictorieux(char modeAffichageVictoire, int tableauGrilleJeu[LONGUEURLIGN
     *gagne = VerifieVictoire(comptageSuitesParDirection, tableauMarquageVictoires);
 }
 
+   void MettreAJourPoints(bool rouges, bool gagne, int *pointsJoueurRouge, int *pointsJoueurBleu) {
+    if (gagne) rouges ? (*pointsJoueurRouge)++ : (*pointsJoueurBleu)++;
+}  
+
 /* *************************************************************************************************************************
                                                 FONCTIONS DE FIN DE MANCHE
 ****************************************************************************************************************************  */
