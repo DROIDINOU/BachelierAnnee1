@@ -64,7 +64,7 @@ void ObtenirColonne(int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int ta
         printf("Veuillez entrer un des numéros de colonne de la grille.\n");
         entreeUtilisateur = scanf("%d", pcolonne);
         while (getchar() != '\n');
-        codeErreur = VerifierValiditeColonne(entreeUtilisateur, *pcolonne, tableauGrilleJeu);//verifie si pas d erreur de colonne ou d entree
+        VerifierValiditeColonne(entreeUtilisateur, *pcolonne, tableauGrilleJeu, &codeErreur);//verifie si pas d erreur de colonne ou d entree
 
         if (codeErreur != 0) {
             AfficherErreurColonne(codeErreur, *pcolonne);//affichage des erreurs si erreurs detectees
@@ -74,12 +74,11 @@ void ObtenirColonne(int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int ta
     *pcolonne = *pcolonne - 1;
 }
 // verifie la validite de la colonne choisie par l'utilisateur et renvoie le type d erreur ou 0 si pas d erreur
-int VerifierValiditeColonne(int entree, int colonne, int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE]) {
-    if (entree != 1) { return ERRORENTREECOLONNEINVALIDE; } // ERREUR D ENTREE SCANF
-    if (colonne < 1 || colonne > LONGUEURCOLONNE) { return ERRORCOLONNEPLAGE; } //COLONNE PAS ENTRE 1 ET 7
-    if (tableauGrilleJeu[0][colonne - 1] != 0) { return ERRORCOLONNEPLEINE; } //si case ligne 0 et colonne <programmeur> est marquee
+void VerifierValiditeColonne(int entree, int colonne, int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int *pcodeErreur) {
+    if (entree != 1) { *pcodeErreur = ERRORENTREECOLONNEINVALIDE; } // ERREUR D ENTREE SCANF
+    if (colonne < 1 || colonne > LONGUEURCOLONNE) { *pcodeErreur = ERRORCOLONNEPLAGE; } //COLONNE PAS ENTRE 1 ET 7
+    if (tableauGrilleJeu[0][colonne - 1] != 0) { *pcodeErreur = ERRORCOLONNEPLEINE; } //si case ligne 0 et colonne <programmeur> est marquee
     // cela veut dire que la colonne est pleine
-    return 0; // retourne 0 si pas d 'erreurs
 }
 // Affichage les erreurs de colonne
 void AfficherErreurColonne(int typeMessage, int colonne) {
@@ -292,7 +291,7 @@ void EstVictorieux(char modeAffichageVictoire, int tableauGrilleJeu[LONGUEURLIGN
     *gagne = VerifieVictoire(comptageSuitesParDirection, tableauMarquageVictoires);
 }
 
-   void MettreAJourPoints(bool rouges, bool gagne, int *pointsJoueurRouge, int *pointsJoueurBleu) {
+   void IncrementerPoints(bool rouges, bool gagne, int *pointsJoueurRouge, int *pointsJoueurBleu) {
     if (gagne) rouges ? (*pointsJoueurRouge)++ : (*pointsJoueurBleu)++;
 }  
 

@@ -29,7 +29,7 @@ int main() {
     //EmojiWindows();    // Affichage d'emojis sur windows
     ConfigureConsoleForC(); // Affichage d emojis console Vs
     printf(REGLEJEU); // affiche en debut de jeu les regles du jeu
-    int pointsJoueurRouge = 0, pointsJoueurBleu = 0, colonne = -1;// comptage des points de manche
+    int pointsJoueurRouge = 0, pointsJoueurBleu = 0;
     char veuxContinuer = 'O', veuxModeSimple = 'O';
     while (veuxContinuer == 'O') {
         /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^/
@@ -49,9 +49,7 @@ int main() {
             ObtenirColonne(tableauGrilleJeu, tableauEtatColonnes, &colonne);//obtient la colonne choisie par joueur apres validation
             ObtenirLigneEtPlacerJeton(rouges, tableauGrilleJeu, colonne, tableauEtatColonnes, &ligne);// detecte la ligne du jeton placé
             EstVictorieux(veuxModeSimple, tableauGrilleJeu, colonne, ligne, tableauMarquageVictoires, &gagne);//verifie si victoire(s)
-            // detectees
-            MettreAJourPoints(rouges, gagne, &pointsJoueurRouge,&pointsJoueurBleu);
-        
+            IncrementerPoints(rouges, gagne, &pointsJoueurRouge,&pointsJoueurBleu);
             AffichageGrille(gagne, tableauGrilleJeu, ligne, colonne, tableauMarquageVictoires);
             rouges = !rouges;// changement de joueur
             nombreToursJoues++;// incremente les tours joues
