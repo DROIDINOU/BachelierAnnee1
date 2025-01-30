@@ -9,8 +9,8 @@ int VerifierValiditeColonne(int entree, int colonne, int tableauGrilleJeu[LONGUE
 void AfficherErreurColonne(int typeMessage, int colonne);
 void RemplirtableauEtatColonnes(int tableauEtatColonnes[LONGUEURCOLONNE], int indexColonne);
 void AfficherColonnesDisponibles(int listeColonneDisponible[LONGUEURCOLONNE]);
-int ObtenirLigneEtPlacerJeton(bool joueur, int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE],
-                              int colonneValide, int listeColonnePleine[LONGUEURCOLONNE]);
+void ObtenirLigneEtPlacerJeton(bool joueur, int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE],
+                              int colonneValide, int listeColonnePleine[LONGUEURCOLONNE], int *pligne);
 int ObtenirLigne(int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int colonne);
 void PlacerJeton(int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int ligne,
                  int colonne, bool joueur, int listeColonnePleine[LONGUEURCOLONNE]);

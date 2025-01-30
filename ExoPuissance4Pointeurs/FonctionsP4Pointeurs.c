@@ -115,12 +115,11 @@ void AfficherColonnesDisponibles(int listeColonneDisponible[LONGUEURCOLONNE]) {
                             FONCTIONS DE GESTION DES LIGNES DE LA COLONNE CHOISIE PAR L UTILISATEUR
 ****************************************************************************************************************************/
 
-int ObtenirLigneEtPlacerJeton(bool joueur, int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE],
-    int colonneValide, int listeColonnePleine[LONGUEURCOLONNE]) {
-    int ligneDisponible = ObtenirLigne(tableauGrilleJeu, colonneValide);  // Obtenir la ligne disponible
-    PlacerJeton(tableauGrilleJeu, ligneDisponible, colonneValide, joueur, listeColonnePleine);  // Placer le jeton
+void ObtenirLigneEtPlacerJeton(bool joueur, int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE],
+    int colonneValide, int listeColonnePleine[LONGUEURCOLONNE], int *pligne) {
+    *pligne = ObtenirLigne(tableauGrilleJeu, colonneValide);  // Obtenir la ligne disponible
+    PlacerJeton(tableauGrilleJeu, *pligne, colonneValide, joueur, listeColonnePleine);  // Placer le jeton
 
-    return ligneDisponible;  // Retourne l'index de la ligne
 }
 // retourne l index de laligne disponible
 int ObtenirLigne(int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int colonne) {
