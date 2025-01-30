@@ -40,4 +40,3 @@ void AffichageMessageFinManche(bool gagne, bool rouges, int pointsJoueurRouge, i
 void ComptagePoints(bool rouges, bool gagne, int *ppointsJoueurRouge, int *ppointsJoueurBleu);
 
 void AffichagePoints(int pointsJoueurRouge, int pointsJoueurBleu);
-

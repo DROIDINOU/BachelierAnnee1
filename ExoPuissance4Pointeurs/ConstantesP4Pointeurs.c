@@ -26,4 +26,3 @@ const int DIRECTIONS[7][3] = {
     {0, 1, VICTOIREHORIZONTALE},// droite (verification uniquement des lignes)
     {0, -1, VICTOIREHORIZONTALE} // gauche
 };
-

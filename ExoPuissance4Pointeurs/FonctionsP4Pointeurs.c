@@ -319,4 +319,3 @@ void AffichagePoints(int pointsJoueurRouge, int pointsJoueurBleu) {
     printf("\t\t\t\t\t\t                    🔴  |  🔵\n"); printf("\t\t\t\t\t                        ------------------\n");
     printf("\t\t\t\t\t\t                    %d   |   %d                              ", pointsJoueurRouge, pointsJoueurBleu);
 }
-
