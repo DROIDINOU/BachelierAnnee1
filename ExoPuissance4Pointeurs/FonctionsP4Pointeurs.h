@@ -16,7 +16,7 @@ void PlacerJeton(int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int ligne
                  int colonne, bool joueur, int listeColonnePleine[LONGUEURCOLONNE]);
 void AffichageGrille(bool gagne, int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE],
                      int ligne, int colonne, int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE]);
-bool VerifieVictoire(int tableauComptageVictoires[4][2], int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE]);
+void VerifieVictoire(int tableauComptageVictoires[4][2], int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE], bool *pgagne);
 bool EstDansLimitesEtEgalejeton(int ligne, int colonne, int ligneVerifiee, int colonneVerifiee,
                                 int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE]);
 void MarquerVictoireEnModeSimple(char modeSimple, int typeDirection, int ligneActuelle, int colonneActuelle,

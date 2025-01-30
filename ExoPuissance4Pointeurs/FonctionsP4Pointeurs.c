@@ -184,12 +184,11 @@ void AffichageGrille(bool gagne, int tableauGrilleJeu[6][7],
 /* Parti pris : J' ai choisi une détection multiple des victoires*/
 
 // Vérifie si le tableau de comptage des victoires comporte des victoires
-bool VerifieVictoire(int tableauComptageVictoires[4][2], int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE]) {
-    bool victoire = false;
+void VerifieVictoire(int tableauComptageVictoires[4][2], int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE], bool *pgagne) {
     for (int i = 0; i < 4; i++) {
         // jeton actuel fait partie de la victoire et n'a pas besoin d'etre marqué dans tableau de victoire
         if (tableauComptageVictoires[i][0] >= 3) {
-            victoire = true;
+            *pgagne = true;
         }
         else {
             // Si pas de victoire, nettoyer les cases du tableau de victoires marquées dans cette direction
@@ -197,7 +196,6 @@ bool VerifieVictoire(int tableauComptageVictoires[4][2], int tableauMarquageVict
             NettoyerTableauMarquageVictoires(tableauComptageVictoires[i][1], tableauMarquageVictoires);
         }
     }
-    return victoire; // Retourne vrai si le tableau de victoire compte au minimum trois jetons marques dans tableau de victoire
 }
 // Vérifie si les limites de tableauGrilleJeu ne sont pas dépassées
 // lors de l'incrémentation des lignes et des colonnes
@@ -290,7 +288,7 @@ void EstVictorieux(char modeAffichageVictoire, int tableauGrilleJeu[LONGUEURLIGN
             tableauGrilleJeu, tableauMarquageVictoires, DIRECTIONS[i][2], comptageSuitesParDirection);
     }
 
-    *pgagne = VerifieVictoire(comptageSuitesParDirection, tableauMarquageVictoires);
+    VerifieVictoire(comptageSuitesParDirection, tableauMarquageVictoires, pgagne);
 }
 
 /* *************************************************************************************************************************
