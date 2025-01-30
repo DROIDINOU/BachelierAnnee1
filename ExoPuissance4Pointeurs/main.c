@@ -45,7 +45,7 @@ int main() {
         // boucle de la manche s arrête si un joueur obtient une ligne de victoire
         //ou en cas d egalite (tableau rempli sans victoire, tours joues = nombre de case de la grille)
         while (!gagne && nombreToursJoues < (LONGUEURLIGNE * LONGUEURCOLONNE)) {
-            colonne = ObtenirColonne(tableauGrilleJeu, tableauEtatColonnes);//obtient la colonne choisie par joueur apres validation
+            ObtenirColonne(tableauGrilleJeu, tableauEtatColonnes, &colonne);//obtient la colonne choisie par joueur apres validation
             ligne = ObtenirLigneEtPlacerJeton(rouges, tableauGrilleJeu, colonne, tableauEtatColonnes);// detecte la ligne du jeton placé
             gagne = EstVictorieux(veuxModeSimple, tableauGrilleJeu, colonne, ligne, tableauMarquageVictoires);//verifie si victoire(s)
             // detectees

@@ -58,22 +58,21 @@ void ObtenirReponseCaractere(const char messageEtReponsesAttendues[][3][MAXLONGU
 ****************************************************************************************************************************/
 // retourne la colonne choisie par utilisateur si pas d erreurs liee a scanf ou a une erreur de colonne
 // en cas d erreur redemande a l utilisateur d entrer une colonne
-int ObtenirColonne(int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int tableauEtatColonnes[LONGUEURCOLONNE]) {
-    int colonne = -1, entreeUtilisateur = 0, codeErreur = 0;
+void ObtenirColonne(int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int tableauEtatColonnes[LONGUEURCOLONNE], int *pcolonne) {
+    int entreeUtilisateur = 0, codeErreur = 0;
     do {
         AfficherColonnesDisponibles(tableauEtatColonnes);// affiches colonne disponibles
         printf("Veuillez entrer un des numéros de colonne de la grille.\n");
-        entreeUtilisateur = scanf("%d", &colonne);
+        entreeUtilisateur = scanf("%d", pcolonne);
         while (getchar() != '\n');
-        codeErreur = VerifierValiditeColonne(entreeUtilisateur, colonne, tableauGrilleJeu);//verifie si pas d erreur de colonne ou d entree
+        codeErreur = VerifierValiditeColonne(entreeUtilisateur, *pcolonne, tableauGrilleJeu);//verifie si pas d erreur de colonne ou d entree
 
         if (codeErreur != 0) {
-            AfficherErreurColonne(codeErreur, colonne);//affichage des erreurs si erreurs detectees
+            AfficherErreurColonne(codeErreur, *pcolonne);//affichage des erreurs si erreurs detectees
         }
         printf("\n");
     } while (codeErreur != 0);// tant qu il y a des erreurs redemander a l utilisateur de choisir une colonne
-
-    return colonne - 1;  // Retourne l'index "programmeur" si pas d erreurs
+     *pcolonne = *pcolonne -1;
 }
 // verifie la validite de la colonne choisie par l'utilisateur et renvoie le type d erreur ou 0 si pas d erreur
 int VerifierValiditeColonne(int entree, int colonne, int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE]) {
