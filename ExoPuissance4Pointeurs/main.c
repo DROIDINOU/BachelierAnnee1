@@ -49,8 +49,7 @@ int main() {
             ObtenirLigneEtPlacerJeton(rouges, tableauGrilleJeu, colonne, tableauEtatColonnes, &ligne);// detecte la ligne du jeton placé
             EstVictorieux(veuxModeSimple, tableauGrilleJeu, colonne, ligne, tableauMarquageVictoires, &gagne);//verifie si victoire(s)
             // detectees
-            pointsJoueurRouge += (rouges && gagne ? 1 : 0);
-            pointsJoueurBleu += (!rouges && gagne ? 1 : 0);
+            ComptagePoints(rouges, gagne, &pointsJoueurRouge, &pointsJoueurBleu);
             AffichageGrille(gagne, tableauGrilleJeu, ligne, colonne, tableauMarquageVictoires);
             rouges = !rouges;// changement de joueur
             nombreToursJoues++;// incremente les tours joues

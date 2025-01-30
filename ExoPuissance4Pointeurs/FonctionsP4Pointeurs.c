@@ -310,6 +310,12 @@ void AffichageMessageFinManche(bool gagne, bool rouges, int pointsJoueurRouge, i
     }
     AffichagePoints(pointsJoueurRouge, pointsJoueurBleu);
 }
+
+void ComptagePoints (bool rouges, bool gagne, int *ppointsJoueurRouge,int *ppointsJoueurBleu){
+
+    *ppointsJoueurRouge += (rouges && gagne ? 1 : 0);
+    *ppointsJoueurBleu += (!rouges && gagne ? 1 : 0);
+}
 // Affichage des points
 void AffichagePoints(int pointsJoueurRouge, int pointsJoueurBleu) {
     printf("\t\t\t\t\t\t                    🔴  |  🔵\n"); printf("\t\t\t\t\t                        ------------------\n");
