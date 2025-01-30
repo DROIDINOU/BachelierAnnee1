@@ -1,6 +1,7 @@
 #include "ConstantesP4Pointeurs.h"
 
 void ConfigureConsoleForC();
+void ProcederTour(bool *pveuxContinuer);
 void NettoyerTableauMarquageVictoires(int direction, int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE]);
 void EmojiWindows();
 void ObtenirReponseCaractere(const char messageEtReponsesAttendues[][3][MAXLONGUEUR], int indexMessage, char *pmode);
@@ -36,7 +37,8 @@ void EstVictorieux(char modeAffichageVictoire, int tableauGrilleJeu[LONGUEURLIGN
                    int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE], bool *pgagne);
 
 
-void AffichageMessageFinManche(bool gagne, bool rouges, int pointsJoueurRouge, int pointsJoueurBleu, int ligne, int colonne);
+void AffichageMessageFinManche(bool gagne, bool rouges, int *ppointsJoueurRouge, int *ppointsJoueurBleu, int ligne, int colonne);
 void ComptagePoints(bool rouges, bool gagne, int *ppointsJoueurRouge, int *ppointsJoueurBleu);
 
-void AffichagePoints(int pointsJoueurRouge, int pointsJoueurBleu);
+void AffichagePoints(int *ppointsJoueurRouge, int *ppointsJoueurBleu);
+void Process (char *pveuxContinuer, int *ppointsJoueurRouge, int *ppointsJoueurBleu );

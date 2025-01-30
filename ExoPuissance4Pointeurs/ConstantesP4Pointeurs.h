@@ -17,3 +17,5 @@
 
 extern const char MESSAGEFINJEU[]; 
 extern const int DIRECTIONS[7][3]; 
+extern const char REGLEJEU[];
+extern const char messageEtReponsesAttendues[NOMBREMESSAGES][3][MAXLONGUEUR];

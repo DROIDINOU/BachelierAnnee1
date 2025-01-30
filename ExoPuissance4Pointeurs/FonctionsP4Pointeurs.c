@@ -295,7 +295,7 @@ void EstVictorieux(char modeAffichageVictoire, int tableauGrilleJeu[LONGUEURLIGN
                                                 FONCTIONS DE FIN DE MANCHE
 ****************************************************************************************************************************  */
 
-void AffichageMessageFinManche(bool gagne, bool rouges, int pointsJoueurRouge, int pointsJoueurBleu, int ligne, int colonne) {
+void AffichageMessageFinManche(bool gagne, bool rouges, int *ppointsJoueurRouge, int *ppointsJoueurBleu, int ligne, int colonne) {
     if (gagne) {
         printf("🎯 Bravo 👏 joueur %s! vous gagnez la partie !\n", rouges ? "bleu" : "rouge");
         printf("Position du jeton victorieux : ligne => %d colonne => %d\n\n", ligne + 1, colonne + 1);
@@ -306,7 +306,7 @@ void AffichageMessageFinManche(bool gagne, bool rouges, int pointsJoueurRouge, i
             rouges ? "rouge" : "bleu", rouges ? "bleu" : "rouge");
 
     }
-    AffichagePoints(pointsJoueurRouge, pointsJoueurBleu);
+    AffichagePoints(ppointsJoueurRouge, ppointsJoueurBleu);
 }
 
 void ComptagePoints (bool rouges, bool gagne, int *ppointsJoueurRouge,int *ppointsJoueurBleu){
@@ -315,7 +315,38 @@ void ComptagePoints (bool rouges, bool gagne, int *ppointsJoueurRouge,int *ppoin
     *ppointsJoueurBleu += (!rouges && gagne ? 1 : 0);
 }
 // Affichage des points
-void AffichagePoints(int pointsJoueurRouge, int pointsJoueurBleu) {
+void AffichagePoints(int *ppointsJoueurRouge, int *ppointsJoueurBleu) {
     printf("\t\t\t\t\t\t                    🔴  |  🔵\n"); printf("\t\t\t\t\t                        ------------------\n");
-    printf("\t\t\t\t\t\t                    %d   |   %d                              ", pointsJoueurRouge, pointsJoueurBleu);
+    printf("\t\t\t\t\t\t                    %d   |   %d                              ", *ppointsJoueurRouge, *ppointsJoueurBleu);
 }
+
+void Process(char *pveuxContinuer, int *ppointsJoueurRouge, int *ppointsJoueurBleu){
+    while (*pveuxContinuer == 'O') {
+        char veuxModeSimple;
+        ObtenirReponseCaractere(messageEtReponsesAttendues, 1, &veuxModeSimple);
+        int colonne = -1, ligne = -1, nombreToursJoues = 0;
+        int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE] = { 0 };// grille servant à l'affichage
+        int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE] = { 0 };// tableau de marquage des victoires
+        int tableauEtatColonnes[LONGUEURCOLONNE] = { 0 };// tableau permettant de detecter si colonne vient d être remplie
+        bool rouges = true, gagne = false; // verification du joueur (rouge ou bleu) et de la victoire de la manche
+        // Affichage grille vide avant le debut de la manche
+        AffichageGrille(gagne, tableauGrilleJeu, ligne, colonne, tableauMarquageVictoires);
+        // boucle de la manche s arrête si un joueur obtient une ligne de victoire
+        //ou en cas d egalite (tableau rempli sans victoire, tours joues = nombre de case de la grille)
+        while (!gagne && nombreToursJoues < (LONGUEURLIGNE * LONGUEURCOLONNE)) {
+            ObtenirColonne(tableauGrilleJeu, tableauEtatColonnes, &colonne);//obtient la colonne choisie par joueur apres validation
+            ObtenirLigneEtPlacerJeton(rouges, tableauGrilleJeu, colonne, tableauEtatColonnes, &ligne);// detecte la ligne du jeton placé
+            EstVictorieux(veuxModeSimple, tableauGrilleJeu, colonne, ligne, tableauMarquageVictoires, &gagne);//verifie si victoire(s)
+            // detectees
+            ComptagePoints(rouges, gagne, ppointsJoueurRouge, ppointsJoueurBleu);
+            AffichageGrille(gagne, tableauGrilleJeu, ligne, colonne, tableauMarquageVictoires);
+            rouges = !rouges;// changement de joueur
+            nombreToursJoues++;// incremente les tours joues
+        }
+        AffichageMessageFinManche(gagne, rouges, ppointsJoueurRouge, ppointsJoueurBleu, ligne, colonne);
+        ObtenirReponseCaractere(messageEtReponsesAttendues, 0, pveuxContinuer ); //demande au joueur si veut recommencer une manche
+
+
+
+}}
+
