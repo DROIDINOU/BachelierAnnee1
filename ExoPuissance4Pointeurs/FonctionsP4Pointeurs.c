@@ -117,23 +117,24 @@ void AfficherColonnesDisponibles(int listeColonneDisponible[LONGUEURCOLONNE]) {
 
 void ObtenirLigneEtPlacerJeton(bool joueur, int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE],
     int colonneValide, int listeColonnePleine[LONGUEURCOLONNE], int *pligne) {
-    *pligne = ObtenirLigne(tableauGrilleJeu, colonneValide);  // Obtenir la ligne disponible
-    PlacerJeton(tableauGrilleJeu, *pligne, colonneValide, joueur, listeColonnePleine);  // Placer le jeton
+    ObtenirLigne(tableauGrilleJeu, colonneValide, pligne);  // Obtenir la ligne disponible
+    PlacerJeton(tableauGrilleJeu, pligne, colonneValide, joueur, listeColonnePleine);  // Placer le jeton
 
 }
 // retourne l index de laligne disponible
-int ObtenirLigne(int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int colonne) {
+void ObtenirLigne(int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int colonne, int *pligne) {
     for (int ligne = LONGUEURLIGNE - 1; ligne >= 0; ligne--) {
         if (tableauGrilleJeu[ligne][colonne] == 0) { // Case vide => ligne disponible
-            return ligne;
+            *pligne = ligne;
+            return;
         }
     }
 }
 
-void PlacerJeton(int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int ligne,
+void PlacerJeton(int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int *pligne,
     int colonne, bool joueur, int listeColonnePleine[LONGUEURCOLONNE]) {
-    tableauGrilleJeu[ligne][colonne] = joueur ? 1 : 2;  // Marque la case avec 1 pour joueur rouge, 2 pour joueur bleu
-    if (ligne == 0) {  // Si la ligne est la première (index 0) -> la colonne est pleine
+    tableauGrilleJeu[*pligne][colonne] = joueur ? 1 : 2;  // Marque la case avec 1 pour joueur rouge, 2 pour joueur bleu
+    if (*pligne == 0) {  // Si la ligne est la première (index 0) -> la colonne est pleine
         RemplirtableauEtatColonnes(listeColonnePleine, colonne);  // Marquer cette colonne comme pleine
     }
 }

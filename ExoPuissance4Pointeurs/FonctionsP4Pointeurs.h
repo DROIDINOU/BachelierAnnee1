@@ -12,8 +12,8 @@ void RemplirtableauEtatColonnes(int tableauEtatColonnes[LONGUEURCOLONNE], int in
 void AfficherColonnesDisponibles(int listeColonneDisponible[LONGUEURCOLONNE]);
 void ObtenirLigneEtPlacerJeton(bool joueur, int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE],
                               int colonneValide, int listeColonnePleine[LONGUEURCOLONNE], int *pligne);
-int ObtenirLigne(int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int colonne);
-void PlacerJeton(int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int ligne,
+void ObtenirLigne(int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int colonne, int *pligne);
+void PlacerJeton(int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE],int *pligne,
                  int colonne, bool joueur, int listeColonnePleine[LONGUEURCOLONNE]);
 void AffichageGrille(bool gagne, int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE],
                      int ligne, int colonne, int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE]);

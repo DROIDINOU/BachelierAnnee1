@@ -16,4 +16,3 @@ int main() {
     printf(MESSAGEFINJEU);
     return 0;
 }
-
