@@ -33,6 +33,6 @@ const char REGLEJEU[] = "REGLES DU JEU\n"
 "Quand un joueur aligne 4 de ses pions horizontalement, verticalement ou en diagonale, il gagne la partie.\n"
 "En mode Affichage simple le jeu affiche 4 jetons de la ou des lignes de victoire.\n"
 "En mode Affichage complet le jeu affiche la ou les lignes de victoire completes.\n";
-const char messageEtReponsesAttendues[NOMBREMESSAGES][3][MAXLONGUEUR] = {
+const char MESSAGEETREPONSESATTENDUES[NOMBREMESSAGES][3][MAXLONGUEUR] = {
      {"\nVoulez-vous continuer?","O","N"},
     {"\nMode affichage simple ou complet?","S","C"} };

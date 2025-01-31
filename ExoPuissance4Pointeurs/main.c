@@ -3,7 +3,7 @@
 
 /*============================================================================================================================
 ================================================================================================================================
-                                                  FONCTION CENTRALE PUISSANCE4 1
+                                                  FONCTION CENTRALE PUISSANCE4 
 ===============================================================================================================================
 ===============================================================================================================================*/
 int main() {
@@ -12,7 +12,7 @@ int main() {
     printf(REGLEJEU); // affiche en debut de jeu les regles du jeu
     int pointsJoueurRouge = 0, pointsJoueurBleu = 0;// comptage des points de manche
     char veuxContinuer = 'O';
-    Process(&veuxContinuer, &pointsJoueurRouge, &pointsJoueurBleu);
+    JouerJeu(&veuxContinuer, &pointsJoueurRouge, &pointsJoueurBleu);
     printf(MESSAGEFINJEU);
     return 0;
 }

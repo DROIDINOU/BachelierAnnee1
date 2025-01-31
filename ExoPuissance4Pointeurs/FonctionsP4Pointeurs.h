@@ -4,7 +4,7 @@ void ConfigureConsoleForC();
 void ProcederTour(bool *pveuxContinuer);
 void NettoyerTableauMarquageVictoires(int direction, int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE]);
 void EmojiWindows();
-void ObtenirReponseCaractere(const char messageEtReponsesAttendues[][3][MAXLONGUEUR], int indexMessage, char *pmode);
+void ObtenirReponseCaractere(const char MESSAGEETREPONSESATTENDUES[][3][MAXLONGUEUR], int indexMessage, char *pmode);
 void ObtenirColonne(int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE], int tableauEtatColonnes[LONGUEURCOLONNE], int *pcolonne);
 int VerifierValiditeColonne(int entree, int colonne, int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE]);
 void AfficherErreurColonne(int typeMessage, int colonne);
@@ -41,4 +41,4 @@ void AffichageMessageFinManche(bool gagne, bool rouges, int *ppointsJoueurRouge,
 void ComptagePoints(bool rouges, bool gagne, int *ppointsJoueurRouge, int *ppointsJoueurBleu);
 
 void AffichagePoints(int *ppointsJoueurRouge, int *ppointsJoueurBleu);
-void Process (char *pveuxContinuer, int *ppointsJoueurRouge, int *ppointsJoueurBleu );
+void JouerJeu (char *pveuxContinuer, int *ppointsJoueurRouge, int *ppointsJoueurBleu );

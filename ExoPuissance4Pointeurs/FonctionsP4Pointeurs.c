@@ -320,10 +320,10 @@ void AffichagePoints(int *ppointsJoueurRouge, int *ppointsJoueurBleu) {
     printf("\t\t\t\t\t\t                    %d   |   %d                              ", *ppointsJoueurRouge, *ppointsJoueurBleu);
 }
 
-void Process(char *pveuxContinuer, int *ppointsJoueurRouge, int *ppointsJoueurBleu){
+void JouerJeu(char *pveuxContinuer, int *ppointsJoueurRouge, int *ppointsJoueurBleu){
     while (*pveuxContinuer == 'O') {
         char veuxModeSimple;
-        ObtenirReponseCaractere(messageEtReponsesAttendues, 1, &veuxModeSimple);
+        ObtenirReponseCaractere(MESSAGEETREPONSESATTENDUES, 1, &veuxModeSimple);
         int colonne = -1, ligne = -1, nombreToursJoues = 0;
         int tableauGrilleJeu[LONGUEURLIGNE][LONGUEURCOLONNE] = { 0 };// grille servant à l'affichage
         int tableauMarquageVictoires[LONGUEURLIGNE][LONGUEURCOLONNE] = { 0 };// tableau de marquage des victoires
@@ -344,9 +344,8 @@ void Process(char *pveuxContinuer, int *ppointsJoueurRouge, int *ppointsJoueurBl
             nombreToursJoues++;// incremente les tours joues
         }
         AffichageMessageFinManche(gagne, rouges, ppointsJoueurRouge, ppointsJoueurBleu, ligne, colonne);
-        ObtenirReponseCaractere(messageEtReponsesAttendues, 0, pveuxContinuer ); //demande au joueur si veut recommencer une manche
+        ObtenirReponseCaractere(MESSAGEETREPONSESATTENDUES, 0, pveuxContinuer ); //demande au joueur si veut recommencer une manche
+   }  
 
-
-
-}}
+}
 
