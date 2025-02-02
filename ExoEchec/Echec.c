@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #define LIGNE 8
 #define COLONNE 8
-#define NOMBREMESSAGES 2
+#define NOMBREMESSAGES 3
 #define MAXLONGUEUR 60
 
 /*------------------------------------------------------------------------------------------------------------------------------
@@ -38,7 +38,9 @@ const char representationspiecesMaitresse[2][8][4] = {
 // Messages predefinis pour utilisateur
 const char MESSAGESUTILISATEUR[NOMBREMESSAGES][2][MAXLONGUEUR] = {
     {"Veuillez entrer la colonne (a, b, c, d, e, f, g, h) : ", "abcdefgh"},
-    {"Veuillez entrer la ligne (1,2,3,4,5,6,7,8) : ", "12345678"}
+    {"Veuillez entrer la ligne (1,2,3,4,5,6,7,8) : ", "12345678"},
+    {"Nouvelle Piece (1,2,3,4,5,6,7,8) : ", "12345678"}
+
 };
 
 
@@ -368,13 +370,13 @@ bool EstCaseVide(int casePiece){
 bool EstPieceJoueur (bool joueur,const int pieces[2][8], int casePiece){
 for (int i = 0; i < 8; i++) {  // Boucle sur les pièces de l'adversaire
                     if (joueur) {
-                        if( casePiece == pieces[1][i] || casePiece == 1){
+                        if( casePiece == pieces[1][i] || casePiece == 11){
                         printf("Joueur blanc la case de destination comporte une piece vous appartenant\n");
                         return true; }
 
                             }
                     else if (!joueur){
-                    if( casePiece == pieces[0][i] || casePiece == 11){
+                    if( casePiece == pieces[0][i] || casePiece == 1){
                         printf("Joueur noir %d la case de destination comporte une piece vous appartenant\n");
                         return true; }
 
@@ -391,7 +393,7 @@ bool EstPieceAdverse(bool joueur,const int pieces[2][8], int casePiece ){
                         return true; }
 
                             }
-                    else if (!joueur){
+                    if (!joueur){
                     if( casePiece == pieces[1][i] || casePiece == 11){
                         printf("Vous avez selectionner une piece adverse\n");
                         return true; }
@@ -411,6 +413,22 @@ void DeplacerPieceJoueur (int ligneDepart, int colonneDepart, int ligneDestinati
           remplacerCaseDestination(ligneDepart,colonneDepart,ligneDestination,colonneDestination, echiquier,typePiece);
           echiquier[ligneDepart][colonneDepart] = 0;
 
+}
+
+void estDernierLigne(bool joueur, int ligne_destination, int type){
+       printf("iciiii%d\n",ligne_destination);
+       if (!joueur && ligne_destination == 7 && type == 1){
+        printf("derniere ligne\n ");
+        int nouvellePiece = ObtenirReponseAuMessage(MESSAGESUTILISATEUR, 2);
+
+
+       }
+       if (joueur && ligne_destination == 0 && type == 11){
+                   printf("derniere ligne\n");
+                int nouvellePiece = ObtenirReponseAuMessage(MESSAGESUTILISATEUR, 2);
+
+
+       }
 }
 
 int main() {
@@ -448,7 +466,7 @@ int main() {
             continue; // Recommencer si une pièce du joueur est sur la case de destination
         }
 
-        printf("Case destination sélectionnée %d\n", pieceDestination);
+        printf("Case destination selectionnee %d\n", pieceDestination);
 
         // Calculer les deltas et vérifier la direction
         deltaColonne = CalculDelta(colonne, colonneDestination);
@@ -456,6 +474,8 @@ int main() {
         directionValide = VerifieDirection(pieceDepart, ligneDestination, colonneDestination, deltaLigne, deltaColonne,&premierTourBlanc,&premierTourNoir );
 
         if (!directionValide) {
+            estDernierLigne(blanc,ligneDestination,directionValide);
+            printf("direction invalide");
             continue; // Recommencer si la direction n'est pas valide
         }
 
@@ -470,6 +490,7 @@ int main() {
               !directionValide ||
               ObstacleDansDirection(directionValide, ligne, colonne, ligneDestination, colonneDestination,
                                                          deltaLigne, deltaColonne, echiquier));
+    estDernierLigne(blanc,ligneDestination,directionValide);
     DeplacerPieceJoueur(ligne,colonne,ligneDestination,colonneDestination, echiquier, directionValide);
     printf("Mouvement valide\n");
     AfficherEchiquier(blanc,echiquier,representationspiecesMaitresse,pieces);
