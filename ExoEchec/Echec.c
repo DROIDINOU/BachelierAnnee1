@@ -43,7 +43,6 @@ const char MESSAGESUTILISATEUR[NOMBREMESSAGES][2][MAXLONGUEUR] = {
 
 };
 
-
 /*********************************************************************************************************************************
 
                                             FONCTIONS UTILITAIRES
@@ -66,6 +65,20 @@ int  CalculDelta (int depart,int arrivee){
 
 }
 
+bool EstCaseVide(int casePiece){
+    if(casePiece == 0){
+        printf("vous avez choisi une case vide!!!!\n");
+        return true;
+    }
+  return false;
+}
+
+// Configuration des emojis pour Windows
+void EmojiWindows() {
+    setlocale(LC_ALL, ".UTF-8");
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+}
 
 /*********************************************************************************************************************************
 
@@ -78,12 +91,6 @@ int  CalculDelta (int depart,int arrivee){
      -Affichage echiquier
 --------------------------------------------------------------------------------------------------------------------------------*/
 
-// Configuration des emojis pour Windows
-void EmojiWindows() {
-    setlocale(LC_ALL, ".UTF-8");
-    SetConsoleOutputCP(CP_UTF8);
-    SetConsoleCP(CP_UTF8);
-}
 
 // Fonction pour vérifier si un caractère est présent dans une chaîne
 int caractereDansChaine(const char chaine[], char caractere) {
@@ -182,7 +189,7 @@ bool ObstacleDansDirection (int typePiece,int ligne, int colonne,
                             int delta_colonne,int echiquier[LIGNE][COLONNE]){
  int incrementLigne, incrementColonne;
 
- if (delta_colonne != 0 && delta_ligne != 0 && (typePiece !=2 && typePiece !=12)){
+ if (delta_colonne != 0 && delta_ligne != 0 && (typePiece !=2 && typePiece !=12 && typePiece !=1 && typePiece !=11)){
     incrementLigne = delta_ligne < 0?1:-1;
     incrementColonne = delta_colonne < 0?1:-1;
     printf("1 : %d\n", incrementLigne);
@@ -211,7 +218,6 @@ bool ObstacleDansDirection (int typePiece,int ligne, int colonne,
             return true;
         }
 
-
     }
 
  }
@@ -229,31 +235,19 @@ bool ObstacleDansDirection (int typePiece,int ligne, int colonne,
 
 int VerifierPion(int type,int delta_ligne, int delta_colonne,bool *ppremierTourBlanc,bool *ppremierTourNoir, int direction, int directionPremierTour){
 
-   if (delta_ligne == directionPremierTour && delta_colonne == 0 && *ppremierTourBlanc) {  // Avancer d'une case
+   if (delta_ligne == directionPremierTour && delta_colonne == 0 && (*ppremierTourBlanc || *ppremierTourNoir)) {  // Avancer d'une case
             printf("pion ok\n");
-            *ppremierTourBlanc=false;
+            *ppremierTourBlanc?false:true;
+            *ppremierTourNoir?false:true;
             return type;}
 
-    else if (delta_ligne == directionPremierTour && delta_colonne == 0 && *ppremierTourNoir) {  // Avancer d'une case
-            printf("pion ok\n");
-            *ppremierTourNoir=false;
-            return type;}
-
-    else if (delta_ligne == direction && delta_colonne == 0) {  // Avancer d'une case
+    else if (delta_ligne == direction && (delta_colonne == 0 || delta_colonne == 1 || delta_colonne == -1)) {  // Avancer d'une case
             printf("pion ok\n");
             return type;}
-    else if (delta_ligne == direction && delta_colonne == 0 && type == 1) {  // Avancer d'une case
-            printf("pion ok\n");
-            return type;
 
-        }
-    else if (delta_ligne == direction && (delta_colonne == 1 || delta_colonne == -1)) {  // Capturer
-            printf("pion ok\n");
-            return type;
-        }
-    else {return 0;}
-
-
+    else {
+            return 0;
+         }
 }
 
 int VerifierTour(int type, int delta_colonne, int delta_ligne){
@@ -262,8 +256,6 @@ int VerifierTour(int type, int delta_colonne, int delta_ligne){
             return type;
         }
                 else{return 0;}
-
-
 }
 
 int VerifierCavalier(int type, int delta_colonne, int delta_ligne){
@@ -272,8 +264,6 @@ int VerifierCavalier(int type, int delta_colonne, int delta_ligne){
             return type;
         }
                 else{return 0;}
-
-
 }
 
 int VerifierFou(int type, int delta_colonne, int delta_ligne){
@@ -282,8 +272,6 @@ int VerifierFou(int type, int delta_colonne, int delta_ligne){
             return type;
         }
                 else{return 0;}
-
-
 }
 
 int VerifierReine(int type, int delta_colonne, int delta_ligne){
@@ -294,19 +282,16 @@ int VerifierReine(int type, int delta_colonne, int delta_ligne){
                     else{return 0;}
 
 }
+
 int VerifierRoi(int type, int delta_colonne, int delta_ligne){
     if (abs(delta_ligne) <= 1 && abs(delta_colonne) <= 1) {  // Mouvement d'une case dans toutes les directions
             printf("roi ok\n");
             return type;
         }
-    else{return 0;}
-
+    else{
+            return 0;
+    }
 }
-
-
-
-
-
 
 int VerifieDirection(int type,int ligne, int colonne, int delta_ligne, int delta_colonne, bool *ppremierTourBlanc, bool *ppremierTourNoir) {
     // Vérifier les pions
@@ -321,7 +306,6 @@ int VerifieDirection(int type,int ligne, int colonne, int delta_ligne, int delta
         printf("direction %d", direction);
         return VerifierPion(type,delta_ligne,delta_colonne,ppremierTourBlanc,ppremierTourNoir,direction,directionPremierTour);
     }
-
     // Vérifier les tours (peu importe la couleur)
     if (type == 4 || type == 14) {  // Tour noire (4) ou blanche (14)
        return VerifierTour(type,delta_ligne,delta_colonne);
@@ -330,14 +314,11 @@ int VerifieDirection(int type,int ligne, int colonne, int delta_ligne, int delta
     // Vérifier les cavaliers (peu importe la couleur)
     if (type == 2 || type == 12) {  // Cavalier noir (2) ou blanc (12)
         return VerifierCavalier(type,delta_ligne,delta_colonne);
-
     }
-
     // Vérifier les fous (peu importe la couleur)
     if (type == 3 || type == 13) {  // Fou noir (3) ou blanc (13)
         return VerifierFou(type,delta_ligne,delta_colonne);
     }
-
     // Vérifier les reines (peu importe la couleur)
     if (type == 5 || type == 15) {  // Reine noire (5) ou blanche (15)
         return VerifierReine(type,delta_ligne,delta_colonne);
@@ -358,15 +339,6 @@ int CaseUtilisateur (int ligne, int colonne,int echiquier[LIGNE][COLONNE]){
    return resultat;
 }
 
-
-bool EstCaseVide(int casePiece){
-    if(casePiece == 0){
-        printf("vous avez choisi une case vide!!!!\n");
-        return true;
-    }
-  return false;
-}
-
 bool EstPieceJoueur (bool joueur,const int pieces[2][8], int casePiece){
 for (int i = 0; i < 8; i++) {  // Boucle sur les pièces de l'adversaire
                     if (joueur) {
@@ -379,7 +351,6 @@ for (int i = 0; i < 8; i++) {  // Boucle sur les pièces de l'adversaire
                     if( casePiece == pieces[0][i] || casePiece == 1){
                         printf("Joueur noir %d la case de destination comporte une piece vous appartenant\n");
                         return true; }
-
                     }
 }return false;
 
@@ -391,21 +362,19 @@ bool EstPieceAdverse(bool joueur,const int pieces[2][8], int casePiece ){
                         if( casePiece == pieces[0][i] || casePiece == 1){
                         printf("Vous avez selectionner une piece adverse\n");
                         return true; }
-
                             }
+
                     if (!joueur){
-                    if( casePiece == pieces[1][i] || casePiece == 11){
+                      if( casePiece == pieces[1][i] || casePiece == 11){
                         printf("Vous avez selectionner une piece adverse\n");
                         return true; }
-
                     }
 }return false;}
 
 void remplacerCaseDestination(int ligneDepart, int colonneDepart, int ligneDestination,
-                          int colonneDestination, int echiquier[LIGNE][COLONNE], int typePiece){
+                             int colonneDestination, int echiquier[LIGNE][COLONNE], int typePiece){
 
-                echiquier [ligneDestination][colonneDestination] = echiquier[ligneDepart][colonneDepart];
-
+                            echiquier [ligneDestination][colonneDestination] = echiquier[ligneDepart][colonneDepart];
 }
 
 void DeplacerPieceJoueur (int ligneDepart, int colonneDepart, int ligneDestination,
@@ -420,14 +389,11 @@ void estDernierLigne(bool joueur, int ligne_destination, int type){
        if (!joueur && ligne_destination == 7 && type == 1){
         printf("derniere ligne\n ");
         int nouvellePiece = ObtenirReponseAuMessage(MESSAGESUTILISATEUR, 2);
-
-
        }
+
        if (joueur && ligne_destination == 0 && type == 11){
                    printf("derniere ligne\n");
                 int nouvellePiece = ObtenirReponseAuMessage(MESSAGESUTILISATEUR, 2);
-
-
        }
 }
 
@@ -436,11 +402,10 @@ int main() {
     bool blanc = true, gagne = false, egalite = false,premierTourBlanc = true, premierTourNoir = true;
     int echiquier[LIGNE][COLONNE] = {0};
     InitialiserEchiquier(echiquier);
-            AfficherEchiquier(blanc,echiquier, representationspiecesMaitresse,pieces);
+    AfficherEchiquier(blanc,echiquier, representationspiecesMaitresse,pieces);
 
     while (!gagne && !egalite){
     // Variables pour l'interaction utilisateur
-
     int colonne, deltaColonne, deltaLigne, directionValide, ligne, pieceDepart, colonneDestination, ligneDestination, pieceDestination;
     // Demander à l'utilisateur de déterminer les positions de départ et d'arrivée, et vérifier la validité
     do {
